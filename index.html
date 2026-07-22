@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>OLPECSYS — Our Lady of Peace Cooperative System</title>
+<meta name="description" content="OLPECSYS — the Our Lady of Peace cooperative management system. Access the member dashboard and the commodity store.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --blue-50:#EEF3FC; --blue-100:#D7E4F8; --blue-500:#3776DC; --blue-600:#145CC9; --blue-700:#0D3D96;
+    --navy:#0B3D91;
+    --gold-400:#FDBB24; --gold-500:#FDB913; --gold-600:#E0A100; --gold-100:#FFEEC2; --gold-50:#FFF9E8;
+    --bg:#EDF4FC; --card:#FFFFFF; --border:#E7E5E4;
+    --stone-900:#1c1c1a; --stone-700:#44443f; --stone-600:#5c5c55; --stone-500:#7a7a72;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html,body{height:100%;}
+  body{
+    font-family:'Inter',sans-serif;
+    background:
+      radial-gradient(circle at 15% 10%, var(--blue-100) 0%, transparent 45%),
+      radial-gradient(circle at 85% 90%, var(--gold-100) 0%, transparent 40%),
+      var(--bg);
+    color:var(--stone-900);
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+  }
+  .wrap{
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    padding:48px 20px;
+  }
+  .mark{
+    width:64px; height:64px;
+    border-radius:50%;
+    background:linear-gradient(135deg, var(--blue-600), var(--navy));
+    display:flex; align-items:center; justify-content:center;
+    margin-bottom:24px;
+    box-shadow:0 8px 24px -8px rgba(13,61,150,0.45);
+    position:relative;
+  }
+  .mark::after{
+    content:"";
+    width:18px; height:18px;
+    background:var(--gold-500);
+    clip-path:polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+  }
+  .eyebrow{
+    font-size:12px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--blue-700);
+    font-weight:600;
+    margin-bottom:10px;
+  }
+  h1{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:clamp(30px, 5vw, 44px);
+    letter-spacing:-0.01em;
+    color:var(--stone-900);
+    text-align:center;
+    margin-bottom:10px;
+  }
+  h1 span{ color:var(--blue-600); }
+  .sub{
+    text-align:center;
+    color:var(--stone-600);
+    font-size:15.5px;
+    max-width:440px;
+    line-height:1.55;
+    margin-bottom:44px;
+  }
+  .grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+    width:100%;
+    max-width:640px;
+  }
+  @media (max-width:560px){ .grid{ grid-template-columns:1fr; } }
+
+  .card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:26px 24px;
+    text-decoration:none;
+    color:inherit;
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+    transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+    position:relative;
+    overflow:hidden;
+  }
+  .card:hover{
+    transform:translateY(-3px);
+    box-shadow:0 14px 30px -14px rgba(20,92,201,0.28);
+    border-color:var(--blue-500);
+  }
+  .card .bar{
+    position:absolute; top:0; left:0; right:0; height:4px;
+  }
+  .card.dashboard .bar{ background:linear-gradient(90deg, var(--blue-600), var(--blue-500)); }
+  .card.store .bar{ background:linear-gradient(90deg, var(--gold-600), var(--gold-400)); }
+
+  .icon{
+    width:38px; height:38px;
+    border-radius:10px;
+    display:flex; align-items:center; justify-content:center;
+    font-size:18px;
+  }
+  .card.dashboard .icon{ background:var(--blue-50); color:var(--blue-700); }
+  .card.store .icon{ background:var(--gold-50); color:var(--gold-600); }
+
+  .card h2{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:19px;
+  }
+  .card p{
+    font-size:13.5px;
+    color:var(--stone-500);
+    line-height:1.5;
+  }
+  .go{
+    margin-top:auto;
+    font-size:13px;
+    font-weight:600;
+    display:flex;
+    align-items:center;
+    gap:6px;
+  }
+  .card.dashboard .go{ color:var(--blue-600); }
+  .card.store .go{ color:var(--gold-600); }
+  .go svg{ width:14px; height:14px; transition:transform .18s ease; }
+  .card:hover .go svg{ transform:translateX(3px); }
+
+  footer{
+    text-align:center;
+    padding:20px;
+    font-size:12px;
+    color:var(--stone-500);
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="mark"></div>
+    <div class="eyebrow">Cooperative Management System</div>
+    <h1>Welcome to <span>OLPECSYS</span></h1>
+    <p class="sub">The digital home of the Our Lady of Peace cooperative — manage member accounts and loans, or run the commodity store, all in one place.</p>
+
+    <div class="grid">
+      <a class="card dashboard" href="OLPECSYS.html">
+        <div class="bar"></div>
+        <div class="icon">📊</div>
+        <h2>Dashboard</h2>
+        <p>Members, savings, and loan management for the cooperative.</p>
+        <span class="go">Open dashboard
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </span>
+      </a>
+
+      <a class="card store" href="commodity.html">
+        <div class="bar"></div>
+        <div class="icon">🛒</div>
+        <h2>Commodity Store</h2>
+        <p>Inventory, sales, and member purchases for the co-op store.</p>
+        <span class="go">Open store
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </span>
+      </a>
+    </div>
+  </div>
+
+  <footer>OLPECSYS · Our Lady of Peace Cooperative</footer>
+</body>
+</html>
